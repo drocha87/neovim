@@ -85,6 +85,11 @@ syntax on
 au Syntax c	source $VIMRUNTIME/syntax/c.vim
 au Syntax cpp source $VIMRUNTIME/syntax/c.vim
 
+augroup highlight_yank
+    autocmd!
+    au TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=600}
+augroup END
+
 nnoremap n nzz
 nnoremap N Nzz
 nnoremap <silent><expr> <C-h> (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
