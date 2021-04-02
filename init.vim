@@ -25,6 +25,9 @@ call plug#end()
 """""""""""""""""""""""""""""""""""
 " general config 
 """""""""""""""""""""""""""""""""""
+filetype on
+filetype plugin indent on
+
 set hidden
 set termguicolors
 set cscopeverbose
@@ -51,14 +54,37 @@ set clipboard+=unnamedplus
 set path+=** " search down into subfolders (for tab-complete)
 set wildmenu " display all matching files for tab-complete
 set wrap!
-set autochdir
+" set autochdir
 set updatetime=300
 set shortmess+=c
 set splitbelow
 set splitright
 
-filetype on
-filetype plugin indent on
+set wildignore+=.hg,.svn,*~,*.png,*.jpg,*.gif,*.settings,Thumbs.db,*.min.js
+set wildignore+=*.swp,publish/*,intermediate/*,*.o,*.hi,Zend,vendor
+set wildignore+=**/node_modules/**
+
+" set t_Co=256
+set showmatch
+set belloff=all
+
+" Very magic by default
+nnoremap ? ?\v
+nnoremap / /\v
+cnoremap %s/ %sm/
+nnoremap ; :
+
+"" no one is really happy until you have this shortcuts
+cnoreabbrev W! w!
+cnoreabbrev Q! q!
+cnoreabbrev Qall! qall!
+cnoreabbrev Wq wq
+cnoreabbrev Wa wa
+cnoreabbrev wQ wq
+cnoreabbrev WQ wq
+cnoreabbrev W w
+cnoreabbrev Q q
+cnoreabbrev Qall qall
 
 set inccommand=nosplit
 
@@ -120,7 +146,7 @@ nmap <C-Up> <S-{>
 nmap <C-Down> <S-}>
 
 let mapleader = " "
-noremap <silent> <Leader>g :G<CR>
+noremap <silent> <Leader>g :tab G<CR>
 noremap <silent> <Leader>r :echo system(findfile('buildrun.sh', ';'))<CR>
 noremap <silent> <Leader>c :echo system(findfile('ctags.sh', ';')) "ctags completed"<CR>
 " reloads vim
@@ -147,15 +173,27 @@ require('telescope').setup{
 EOF
 
 " show/hide explorer window
-noremap <silent> <Leader>e :call ToggleExplore()<CR>
+noremap <silent> <leader>e :call ToggleExplore()<CR>
 " Find files using Telescope command-line sugar.
+nnoremap <leader><leader> <cmd>Telescope buffers<CR>
 nnoremap <silent><C-p> <cmd>Telescope git_files<CR>
 nnoremap <leader>ff <cmd>Telescope find_files<CR>
 nnoremap <leader>fg <cmd>Telescope live_grep<CR>
-nnoremap <leader>bb <cmd>Telescope buffers<CR>
 nnoremap <leader>fh <cmd>Telescope help_tags<CR>
-
 nnoremap <leader>pp <cmd>:lua require'telescope'.load_extension('project')<CR>
+
+nnoremap <PageUp> :tabn<CR>
+nnoremap <PageDown> :tabp<CR>
+
+" Vim fugitive
+nnoremap <F12> :tab G<CR>
+nnoremap <F4> :tabclose<CR>
+inoremap <C-c> <esc>
+
+if executable('rg')
+  let g:rg_derive_root='true'
+endif
+
 """""""""""""""""""""""""""""""""""
 " notes
 """""""""""""""""""""""""""""""""""
