@@ -36,7 +36,6 @@ set tabstop=2
 set shiftwidth=2
 "set softtabstop
 set expandtab
-"set softtabstop
 set ignorecase
 set smartcase
 set autoindent
@@ -138,20 +137,23 @@ set tags=./.tags;/
 inoremap <C-H> <C-W>
 set backspace=indent,eol,start
 
+" Simulate the "normal" behavior of ctrl [right|left] in emacs/vscode/browsers
 imap <C-Right> <S-Right>
 imap <C-Left> <S-Left>
 nmap <C-Right> <S-Right>
 nmap <C-Left> <S-Left>
+
+" Jump in blocks using Ctrl up and down
 nmap <C-Up> <S-{>
 nmap <C-Down> <S-}>
 
 let mapleader = " "
-noremap <silent> <Leader>g :tab G<CR>
-noremap <silent> <Leader>r :echo system(findfile('buildrun.sh', ';'))<CR>
-noremap <silent> <Leader>c :echo system(findfile('ctags.sh', ';')) "ctags completed"<CR>
-" reloads vim
-noremap <silent> <Leader>v :so $MYVIMRC<CR>
+noremap <silent> <leader>g :tab G<CR>
+" Open this config file
+noremap <silent> <leader>i :e ~/.config/nvim/init.vim<CR>
 
+" show/hide explorer window
+noremap <silent> <C-e> :call ToggleExplore()<CR>
 
 lua << EOF
 require('telescope').setup{
@@ -171,9 +173,6 @@ require('telescope').setup{
   }
 }
 EOF
-
-" show/hide explorer window
-noremap <silent> <leader>e :call ToggleExplore()<CR>
 " Find files using Telescope command-line sugar.
 nnoremap <leader><leader> <cmd>Telescope buffers<CR>
 nnoremap <silent><C-p> <cmd>Telescope git_files<CR>
@@ -186,19 +185,12 @@ nnoremap <PageUp> :tabn<CR>
 nnoremap <PageDown> :tabp<CR>
 
 " Vim fugitive
-nnoremap <F12> :tab G<CR>
 nnoremap <F4> :tabclose<CR>
 inoremap <C-c> <esc>
 
 if executable('rg')
   let g:rg_derive_root='true'
 endif
-
-"""""""""""""""""""""""""""""""""""
-" notes
-"""""""""""""""""""""""""""""""""""
-" Ctrl-] go to tag
-" Ctrl-o go back from tag
 
 """""""""""""""""""""""""""""""""""
 " coc
