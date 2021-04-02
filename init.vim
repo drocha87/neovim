@@ -10,10 +10,16 @@ call plug#begin('~/.vim/plugged')
   Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim'
+  Plug 'nvim-telescope/telescope-project.nvim'
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-" Initialize plugin system
+
+  Plug 'tpope/vim-commentary'
+
+  Plug 'godlygeek/tabular'
+  Plug 'plasticboy/vim-markdown'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""
@@ -28,6 +34,8 @@ set shiftwidth=2
 "set softtabstop
 set expandtab
 "set softtabstop
+set ignorecase
+set smartcase
 set autoindent
 set smartindent
 set cindent
@@ -37,6 +45,7 @@ set nowritebackup
 set noundofile
 set scrolloff=10
 set number relativenumber
+set numberwidth=6
 set mouse=a
 set clipboard+=unnamedplus
 set path+=** " search down into subfolders (for tab-complete)
@@ -45,8 +54,13 @@ set wrap!
 set autochdir
 set updatetime=300
 set shortmess+=c
+set splitbelow
+set splitright
+
 filetype on
 filetype plugin indent on
+
+set inccommand=nosplit
 
 """""""""""""""""""""""""""""""""""
 " global variables
@@ -71,8 +85,12 @@ syntax on
 au Syntax c	source $VIMRUNTIME/syntax/c.vim
 au Syntax cpp source $VIMRUNTIME/syntax/c.vim
 
-"colorscheme ayu
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap <silent><expr> <C-h> (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
+
 colorscheme embark
+"colorscheme ayu
 "colorscheme apprentice
 "colorscheme simple-dark
 set cursorline
@@ -86,8 +104,15 @@ set tags=./.tags;/
 " preview tag/ close preview tags
 
 " save file
-"noremap <C-\> <C-w>}
-"noremap <C-]> <C-w>z
+inoremap <C-H> <C-W>
+set backspace=indent,eol,start
+
+imap <C-Right> <S-Right>
+imap <C-Left> <S-Left>
+nmap <C-Right> <S-Right>
+nmap <C-Left> <S-Left>
+nmap <C-Up> <S-{>
+nmap <C-Down> <S-}>
 
 let mapleader = " "
 noremap <silent> <Leader>g :G<CR>
@@ -96,15 +121,36 @@ noremap <silent> <Leader>c :echo system(findfile('ctags.sh', ';')) "ctags comple
 " reloads vim
 noremap <silent> <Leader>v :so $MYVIMRC<CR>
 
+
+lua << EOF
+require('telescope').setup{
+  defaults = {
+    vimgrep_arguments = {
+      'rg',
+      '--color=never',
+      '--no-heading',
+      '--with-filename',
+      '--line-number',
+      '--column',
+      '--smart-case',
+      '-u', -- thats the new thing
+      '--hidden',
+      '--glob \'!.git\''
+    },
+  }
+}
+EOF
+
 " show/hide explorer window
 noremap <silent> <Leader>e :call ToggleExplore()<CR>
 " Find files using Telescope command-line sugar.
-nnoremap <silent><C-p> <cmd>Telescope git_files<cr>
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>bb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <silent><C-p> <cmd>Telescope git_files<CR>
+nnoremap <leader>ff <cmd>Telescope find_files<CR>
+nnoremap <leader>fg <cmd>Telescope live_grep<CR>
+nnoremap <leader>bb <cmd>Telescope buffers<CR>
+nnoremap <leader>fh <cmd>Telescope help_tags<CR>
 
+nnoremap <leader>pp <cmd>:lua require'telescope'.load_extension('project')<CR>
 """""""""""""""""""""""""""""""""""
 " notes
 """""""""""""""""""""""""""""""""""
@@ -114,6 +160,8 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 """""""""""""""""""""""""""""""""""
 " coc
 """""""""""""""""""""""""""""""""""
+let g:coc_node_path = '$NVM_BIN/node'
+
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
@@ -249,4 +297,5 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
+let g:vim_markdown_folding_disabled = 1
 
