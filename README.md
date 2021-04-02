@@ -3,7 +3,7 @@ My personal neovim configuration
 
 To use 
 1) backup your ~/.config/nvim
-2) clone the repo to `git clone ... ~/.config/nvim`
+2) clone the repo to `git clone git@github.com:drocha87/neovim.git ~/.config/nvim`
 
 ## Install vim plug
 ```bash
