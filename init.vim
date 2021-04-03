@@ -3,8 +3,11 @@
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
+  " Git
   Plug 'tpope/vim-fugitive'
   Plug 'airblade/vim-gitgutter'
+  Plug 'cohama/agit.vim'
+
   Plug 'airblade/vim-rooter'
 
   Plug 'nvim-lua/popup.nvim'
@@ -15,6 +18,14 @@ call plug#begin('~/.vim/plugged')
 
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+  Plug 'leafgarland/typescript-vim'
+  Plug 'mattn/emmet-vim'
+  Plug 'jelera/vim-javascript-syntax'
+  Plug 'posva/vim-vue'
+  Plug 'prettier/vim-prettier'
+  Plug 'rust-lang/rust.vim'
+  Plug 'alvan/vim-closetag'
+  Plug 'cespare/vim-toml' 
 
   Plug 'tpope/vim-commentary'
 
@@ -192,10 +203,13 @@ if executable('rg')
   let g:rg_derive_root='true'
 endif
 
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.vue'
+
 """""""""""""""""""""""""""""""""""
 " coc
 """""""""""""""""""""""""""""""""""
 let g:coc_node_path = '$NVM_BIN/node'
+let g:coc_global_extensions = ['coc-go', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-vetur', 'coc-tsserver']
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
