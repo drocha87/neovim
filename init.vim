@@ -7,6 +7,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-fugitive'
   Plug 'airblade/vim-gitgutter'
   Plug 'cohama/agit.vim'
+  Plug 'editorconfig/editorconfig-vim'
 
   Plug 'airblade/vim-rooter'
 
@@ -31,6 +32,9 @@ call plug#begin('~/.vim/plugged')
 
   Plug 'godlygeek/tabular'
   Plug 'plasticboy/vim-markdown'
+
+  Plug 'itchyny/lightline.vim'
+  Plug 'josa42/vim-lightline-coc'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""
@@ -75,7 +79,7 @@ set wildignore+=*.swp,publish/*,intermediate/*,*.o,*.hi,Zend,vendor
 set wildignore+=**/node_modules/**
 
 " set t_Co=256
-set showmatch
+" set showmatch
 set belloff=all
 
 " Very magic by default
@@ -157,6 +161,8 @@ nmap <C-Left> <S-Left>
 " Jump in blocks using Ctrl up and down
 nmap <C-Up> <S-{>
 nmap <C-Down> <S-}>
+vmap <C-Up> <S-{>
+vmap <C-Down> <S-}>
 
 let mapleader = " "
 noremap <silent> <leader>g :tab G<CR>
@@ -169,6 +175,7 @@ noremap <silent> <C-e> :call ToggleExplore()<CR>
 lua << EOF
 require('telescope').setup{
   defaults = {
+    file_ignore_patterns = { "node_modules", "scratch/.*", "%.env" },
     vimgrep_arguments = {
       'rg',
       '--color=never',
@@ -179,7 +186,6 @@ require('telescope').setup{
       '--smart-case',
       '-u', -- thats the new thing
       '--hidden',
-      '--glob \'!.git\''
     },
   }
 }
@@ -347,4 +353,22 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 let g:vim_markdown_folding_disabled = 1
+
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'absolutepath', 'modified' ],
+      \             [  'coc_info', 'coc_hints', 'coc_errors', 'coc_warnings', 'coc_ok' ], [ 'coc_status'  ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead',
+      \ },
+      \ }
+
+" register compoments:
+call lightline#coc#register()
+
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+au FileType gitcommit let b:EditorConfig_disable = 1
 
