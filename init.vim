@@ -106,6 +106,8 @@ set inccommand=nosplit
 " global variables
 """""""""""""""""""""""""""""""""""
 let g:explore_is_open = 0
+let g:netrw_keepdir = 0
+
 """""""""""""""""""""""""""""""""""
 " functions 
 """""""""""""""""""""""""""""""""""
