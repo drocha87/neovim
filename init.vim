@@ -193,7 +193,7 @@ require('telescope').setup{
 }
 EOF
 " Find files using Telescope command-line sugar.
-nnoremap <leader><leader> <cmd>Telescope buffers<CR>
+nnoremap <leader><leader> :lua require('telescope.builtin').buffers{ show_all_buffers = true, sort_lastused = true}<CR>
 nnoremap <silent><C-p> <cmd>Telescope git_files<CR>
 nnoremap <leader>ff <cmd>Telescope find_files<CR>
 nnoremap <leader>fg <cmd>Telescope live_grep<CR>
