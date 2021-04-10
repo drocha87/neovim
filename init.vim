@@ -1,3 +1,4 @@
+syntax enable
 
 " Specify a directory for plugins
 " - For Neovim: stdpath('data') . '/plugged'
@@ -127,9 +128,8 @@ endfunction
 
 " highlighting and color
 """""""""""""""""""""""""""""""""""
-syntax on
-au Syntax c	source $VIMRUNTIME/syntax/c.vim
-au Syntax cpp source $VIMRUNTIME/syntax/c.vim
+" au Syntax c	source $VIMRUNTIME/syntax/c.vim
+" au Syntax cpp source $VIMRUNTIME/syntax/c.vim
 
 augroup highlight_yank
     autocmd!
@@ -140,10 +140,19 @@ nnoremap n nzz
 nnoremap N Nzz
 nnoremap <silent><expr> <C-h> (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 
-colorscheme embark
-"colorscheme ayu
-"colorscheme apprentice
-"colorscheme simple-dark
+set t_Co=256   " This is may or may not needed.
+set background=light
+colorscheme peachpuff
+" colorscheme solarized8
+" autocmd ColorScheme * highlight! link SignColumn LineNr
+
+" colorscheme seoul256-light
+" colorscheme PaperColor
+" colorscheme embark
+" colorscheme ayu
+" colorscheme apprentice
+" colorscheme simple-dark
+"
 set cursorline
 hi Normal guibg=NONE ctermbg=NONE
 
@@ -218,10 +227,18 @@ endif
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.vue'
 
 """""""""""""""""""""""""""""""""""
+" vim-go
+"""""""""""""""""""""""""""""""""""
+" let g:go_auto_type_info = 1
+" let g:go_diagnostic_level = 2
+" let g:go_highlight_diagnostic_errors = 1
+" let g:go_highlight_diagnostic_warnings = 1
+
+"""""""""""""""""""""""""""""""""""
 " coc
 """""""""""""""""""""""""""""""""""
 let g:coc_node_path = '$NVM_BIN/node'
-let g:coc_global_extensions = ['coc-go', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-vetur', 'coc-tsserver']
+let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-vetur', 'coc-tsserver']
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -321,6 +338,11 @@ if has('nvim-0.4.0') || has('patch-8.2.0750')
   vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 endif
 
+" Quickfix
+noremap <silent><C-q> :copen <CR>
+noremap <leader>qn :cn <CR>
+noremap <leader>qp :cp <CR>
+
 " Use CTRL-S for selections ranges.
 " Requires 'textDocument/selectionRange' support of language server.
 nmap <silent> <C-s> <Plug>(coc-range-select)
@@ -347,6 +369,7 @@ nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
 nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
 " Show commands.
 nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+
 " Find symbol of current document.
 nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
 " Search workspace symbols.
@@ -360,8 +383,11 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 let g:vim_markdown_folding_disabled = 1
 
+set laststatus=2
+set noshowmode
+
 let g:lightline = {
-      \ 'colorscheme': 'wombat',
+      \ 'colorscheme': 'solarized',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'absolutepath', 'modified' ],
