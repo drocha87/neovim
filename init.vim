@@ -30,12 +30,14 @@ call plug#begin('~/.vim/plugged')
   Plug 'cespare/vim-toml' 
 
   Plug 'tpope/vim-commentary'
+  Plug 'tpope/vim-surround'
 
   Plug 'godlygeek/tabular'
   Plug 'plasticboy/vim-markdown'
 
   Plug 'itchyny/lightline.vim'
   Plug 'josa42/vim-lightline-coc'
+  Plug 'shinchu/lightline-gruvbox.vim'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""
@@ -110,7 +112,7 @@ let g:explore_is_open = 0
 let g:netrw_keepdir = 0
 let g:netrw_preview = 1
 let g:netrw_alto = 0
-let g:netrw_liststyle = 3
+let g:netrw_liststyle = 0
 let g:netrw_winsize   = 30
 
 """""""""""""""""""""""""""""""""""
@@ -141,14 +143,19 @@ nnoremap N Nzz
 nnoremap <silent><expr> <C-h> (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 
 set t_Co=256   " This is may or may not needed.
-set background=light
-colorscheme peachpuff
-" colorscheme solarized8
-" autocmd ColorScheme * highlight! link SignColumn LineNr
 
+" light colorscheme
+set background=dark
+" colorscheme peachpuff
+" colorscheme solarized8
+colorscheme gruvbox
+
+" dark colorscheme
+" set background=dark
+" colorscheme embark
+"
 " colorscheme seoul256-light
 " colorscheme PaperColor
-" colorscheme embark
 " colorscheme ayu
 " colorscheme apprentice
 " colorscheme simple-dark
@@ -233,11 +240,12 @@ let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.vue'
 " let g:go_diagnostic_level = 2
 " let g:go_highlight_diagnostic_errors = 1
 " let g:go_highlight_diagnostic_warnings = 1
+" let g:go_gopls_enabled = 0
 
 """""""""""""""""""""""""""""""""""
 " coc
 """""""""""""""""""""""""""""""""""
-let g:coc_node_path = '$NVM_BIN/node'
+let g:coc_node_path = '/usr/bin/node'
 let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-vetur', 'coc-tsserver']
 
 " Use tab for trigger completion with characters ahead and navigate.
@@ -387,7 +395,7 @@ set laststatus=2
 set noshowmode
 
 let g:lightline = {
-      \ 'colorscheme': 'solarized',
+      \ 'colorscheme': 'gruvbox',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'absolutepath', 'modified' ],
