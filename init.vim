@@ -15,7 +15,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim'
-  Plug 'nvim-telescope/telescope-project.nvim'
+  " Plug 'nvim-telescope/telescope-project.nvim'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -38,6 +38,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'itchyny/lightline.vim'
   Plug 'josa42/vim-lightline-coc'
   Plug 'shinchu/lightline-gruvbox.vim'
+  Plug 'ishan9299/modus-theme-vim'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""
@@ -84,6 +85,9 @@ set wildignore+=**/node_modules/**
 " set t_Co=256
 " set showmatch
 set belloff=all
+
+" I never used this mode, so I can disable it for sure
+noremap Q <nop>
 
 " Very magic by default
 nnoremap ? ?\v
@@ -145,10 +149,11 @@ nnoremap <silent><expr> <C-h> (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 set t_Co=256   " This is may or may not needed.
 
 " light colorscheme
-set background=dark
+" set background=dark
 " colorscheme peachpuff
 " colorscheme solarized8
-colorscheme gruvbox
+" colorscheme gruvbox
+colorscheme modus-operandi
 
 " dark colorscheme
 " set background=dark
@@ -218,7 +223,7 @@ nnoremap <silent><C-p> <cmd>Telescope git_files<CR>
 nnoremap <leader>ff <cmd>Telescope find_files<CR>
 nnoremap <leader>fg <cmd>Telescope live_grep<CR>
 nnoremap <leader>fh <cmd>Telescope help_tags<CR>
-nnoremap <leader>pp <cmd>:lua require'telescope'.load_extension('project')<CR>
+" nnoremap <leader>pp <cmd>:lua require'telescope'.load_extension('project')<CR>
 
 nnoremap <PageUp> :tabn<CR>
 nnoremap <PageDown> :tabp<CR>
@@ -246,7 +251,7 @@ let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.vue'
 " coc
 """""""""""""""""""""""""""""""""""
 let g:coc_node_path = '/usr/bin/node'
-let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-vetur', 'coc-tsserver']
+let g:coc_global_extensions = ['coc-emmet', 'coc-go', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-vetur', 'coc-tsserver']
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
