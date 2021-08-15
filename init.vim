@@ -153,7 +153,7 @@ set t_Co=256   " This is may or may not needed.
 " colorscheme peachpuff
 " colorscheme solarized8
 " colorscheme gruvbox
-colorscheme modus-operandi
+colorscheme modus-vivendi
 
 " dark colorscheme
 " set background=dark
@@ -221,7 +221,7 @@ EOF
 nnoremap <leader><leader> :lua require('telescope.builtin').buffers{ show_all_buffers = true, sort_lastused = true}<CR>
 nnoremap <silent><C-p> <cmd>Telescope git_files<CR>
 nnoremap <leader>ff <cmd>Telescope find_files<CR>
-nnoremap <leader>fg <cmd>Telescope live_grep<CR>
+nnoremap <leader>/ <cmd>Telescope live_grep<CR>
 nnoremap <leader>fh <cmd>Telescope help_tags<CR>
 " nnoremap <leader>pp <cmd>:lua require'telescope'.load_extension('project')<CR>
 
